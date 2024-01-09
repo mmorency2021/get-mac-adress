@@ -35,3 +35,9 @@ B8:CE:F6:56:3D:B3
 b8:ce:f6:56:3d:b2
 b8:ce:f6:56:3d:b3
 ```
+
+
+```bash
+for ip in $(cat server_ip.txt); do echo server $ip >> test.txt; ssh root@$ip racadm getsysinfo -s | grep Inte | awk '{print $4}' |  tr '[:upper:]' '[:lower:]'>> test.txt; done
+
+```
