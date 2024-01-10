@@ -34,10 +34,34 @@ B8:CE:F6:56:3D:B3
 (root@192.168.24.157) Password: 
 b8:ce:f6:56:3d:b2
 b8:ce:f6:56:3d:b3
+
+
 ```
 
 
 ```bash
 for ip in $(cat server_ip.txt); do echo server $ip >> test.txt; ssh root@$ip racadm getsysinfo -s | grep Inte | awk '{print $4}' |  tr '[:upper:]' '[:lower:]'>> test.txt; done
+
+```
+```bash
+curl -X GET https://192.168.24.153/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/NIC.Integrated.1-1-1 --user root:$PASS --insecure -d '{}' -H "Content-Type: application/json" | jq .MACAddress
+
+
+
+for ip in $(cat server_ip.txt); do echo server $ip;curl -X GET https://$ip/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/NIC.Integrated.1-1-1 --user root:$PASS --insecure --silent -d '{}' -H "Content-Type: application/json" | jq .MACAddress;done
+
+for ip in $(cat server_ip.txt); do echo server $ip;curl -X GET https://$ip/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/NIC.Integrated.1-1-1 --user root:$PASS --insecure --silent -d '{}' -H "Content-Type: application/json" | jq .MACAddress| tr '[:upper:]' '[:lower:]' ;done
+
+for ip in $(cat server_ip.txt); do echo server $ip;curl -X GET https://$ip/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/NIC.Integrated.1-2-1 --user root:$PASS --insecure --silent -d '{}' -H "Content-Type: application/json" | jq .MACAddress| tr '[:upper:]' '[:lower:]' ;done
+
+for ip in $(cat server_ip.txt); do echo server $ip;curl -X GET https://$ip/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/NIC.Embedded.1-1-1 --user root:$PASS --insecure --silent -d '{}' -H "Content-Type: application/json" | jq .MACAddress| tr '[:upper:]' '[:lower:]' ;done 
+server 192.168.46.150
+"c4:cb:e1:a7:41:56"
+server 192.168.46.151
+"c4:cb:e1:a7:43:34"
+
+
+
+for ip in $(cat server_ip.txt); do echo server $ip;curl -X GET https://$ip/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/NIC.Embedded.2-1-1 --user root:$PASS --insecure --silent -d '{}' -H "Content-Type: application/json" | jq .MACAddress| tr '[:upper:]' '[:lower:]' ;done 
 
 ```
