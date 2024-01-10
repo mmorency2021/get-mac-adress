@@ -65,3 +65,8 @@ server 192.168.46.151
 for ip in $(cat server_ip.txt); do echo server $ip;curl -X GET https://$ip/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/NIC.Embedded.2-1-1 --user root:$PASS --insecure --silent -d '{}' -H "Content-Type: application/json" | jq .MACAddress| tr '[:upper:]' '[:lower:]' ;done 
 
 ```
+
+```bash
+curl -X GET https://192.168.46.151/redfish/v1/Systems/System.Embedded.1/Bios --user root:$PASS --insecure --silent -d '{}' -H "Content-Type: application/json" | jq | grep -i bootmode
+
+```
